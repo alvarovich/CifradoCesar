@@ -32,6 +32,20 @@ public class Cesar {
 
     public static void main(String[] args) {
 
-        
+    	Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Introduce el mensaje: ");
+        String mensaje = scanner.nextLine();
+
+        System.out.print("Introduce la clave (desplazamiento): ");
+        int clave = scanner.nextInt();
+
+        String cifrado = cifrar(mensaje, clave);
+        String descifrado = descifrar(cifrado, clave);
+
+        System.out.println("Mensaje cifrado: " + cifrado);
+        System.out.println("Mensaje descifrado: " + descifrado);
+
+        scanner.close();
     }
 }
