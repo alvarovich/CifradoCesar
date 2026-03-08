@@ -4,22 +4,35 @@ import java.util.Scanner;
 
 public class Cesar {
 
-	public static String cifrar(String texto, int clave) {
+	static String alfabeto = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+    static int tamano = alfabeto.length(); // 27 letras
+
+    public static String cifrar(String texto, int clave) {
+
         StringBuilder resultado = new StringBuilder();
 
         for (int i = 0; i < texto.length(); i++) {
+
             char caracter = texto.charAt(i);
+            boolean esMinuscula = Character.isLowerCase(caracter);
 
-            if (Character.isLetter(caracter)) {
+            char letra = Character.toUpperCase(caracter);
 
-                char base = Character.isUpperCase(caracter) ? 'A' : 'a';
+            int posicion = alfabeto.indexOf(letra);
 
-                char cifrado = (char) ((caracter - base + clave) % 26 + base);
+            if (posicion != -1) {
 
-                resultado.append(cifrado);
+                int nuevaPos = (posicion + clave) % tamano;
+                char cifrada = alfabeto.charAt(nuevaPos);
+
+                if (esMinuscula) {
+                    cifrada = Character.toLowerCase(cifrada);
+                }
+
+                resultado.append(cifrada);
 
             } else {
-                resultado.append(caracter); 
+                resultado.append(caracter);
             }
         }
 
@@ -27,7 +40,7 @@ public class Cesar {
     }
 
     public static String descifrar(String texto, int clave) {
-        return cifrar(texto, 26 - (clave % 26));
+        return cifrar(texto, tamano - (clave % tamano));
     }
 
     public static void main(String[] args) {
